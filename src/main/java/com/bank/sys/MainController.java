@@ -3,6 +3,7 @@ package com.bank.sys;
 import java.io.IOException;
 
 import com.bank.sys.screens.MainWindow.MainWindowController;
+import com.bank.sys.screens.RegisterWindow.RegisterWindowController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,16 +13,18 @@ import javafx.stage.Stage;
 
 public class MainController extends Application {
 
-    private Parent mainWindow;
+    private Stage mainStage;
+    private Scene mainWindow;
+    private Scene registerWindow;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        mainWindow = loadFXML(new MainWindowController(this), "./screens/MainWindow/main_window_form.fxml");
+        mainStage = stage;
 
-        stage.setScene(new Scene(mainWindow));
+        naviageTo("/");
 
-        stage.show();
+        mainStage.show();
     }
 
     public static void runApp(String[] args) {
@@ -32,5 +35,29 @@ public class MainController extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
         loader.setController(controller);
         return loader.load();
+    }
+
+    public void naviageTo(String path) {
+        try {
+            switch(path) {
+                case "/":
+                    if(mainWindow == null) {
+                        mainWindow = new Scene(loadFXML(new MainWindowController(this), "./screens/MainWindow/main_window_form.fxml"));
+                    }
+                    mainStage.setScene(mainWindow);
+                break;
+                case "/register":
+                    if(registerWindow == null) {
+                        registerWindow = new Scene(loadFXML(new RegisterWindowController(this), "./screens/RegisterWindow/register_window_form.fxml"));
+                    }
+                    mainStage.setScene(registerWindow);
+                break;
+    
+            }
+        }
+        catch(IOException fileEx) {
+            System.out.println("[NAVIGATION ERR]: path \"" + path + "\" couldn't be resolved");
+        } 
+       
     }
 }

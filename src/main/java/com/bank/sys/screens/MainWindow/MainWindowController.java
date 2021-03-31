@@ -31,6 +31,7 @@ public class MainWindowController {
 
     public void handleRegisterButton(ActionEvent event) {
         System.out.println("Register!");
+        parent.naviageTo("/register");
     }
     
 }
