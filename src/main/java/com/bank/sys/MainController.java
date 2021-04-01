@@ -17,8 +17,12 @@ public class MainController extends Application {
     private Scene mainWindow;
     private Scene registerWindow;
 
+    public DatabaseService dbService;
+
     @Override
     public void start(Stage stage) throws Exception {
+
+        dbService = new DatabaseService();
 
         mainStage = stage;
 
@@ -52,7 +56,9 @@ public class MainController extends Application {
                     }
                     mainStage.setScene(registerWindow);
                 break;
-    
+                default:
+                    System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");
+                break;
             }
         }
         catch(IOException fileEx) {

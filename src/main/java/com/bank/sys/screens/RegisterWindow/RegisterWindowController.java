@@ -1,6 +1,7 @@
 package com.bank.sys.screens.RegisterWindow;
 
 import com.bank.sys.MainController;
+import com.bank.sys.models.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,11 +35,11 @@ public class RegisterWindowController {
     }
 
     public void handleRegisterButton(ActionEvent event) {
-        System.out.println("REGISTERING USER: ");
-        System.out.println(nameField.getText());
-        System.out.println(surnameField.getText());
-        System.out.println(peselField.getText());
-        System.out.println(adresField.getText());
+        User newUser = new User(nameField.getText(), surnameField.getText(), peselField.getText(), adresField.getText());
+        parent.dbService.insertUser(newUser);
+        System.out.println("CREATED USER: ");
+        System.out.println(newUser);
+        parent.naviageTo("/");
     }
 
     public void handleCancelButton(ActionEvent event) {
