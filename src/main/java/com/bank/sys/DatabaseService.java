@@ -10,9 +10,12 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.types.ObjectId;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class DatabaseService {
     
@@ -46,5 +49,11 @@ public class DatabaseService {
         initUsersCollection();
 
         usersCollection.insertOne(user);
+    }
+
+    public User findUser(String userId) {
+        initUsersCollection();
+
+        return usersCollection.find(eq("_id", new ObjectId(userId))).first();
     }
 }

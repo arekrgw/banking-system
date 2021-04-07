@@ -2,6 +2,8 @@ package com.bank.sys;
 
 import java.io.IOException;
 
+import com.bank.sys.models.User;
+import com.bank.sys.screens.LoginWindow.LoginWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
 import com.bank.sys.screens.RegisterWindow.RegisterWindowController;
 
@@ -16,6 +18,9 @@ public class MainController extends Application {
     private Stage mainStage;
     private Scene mainWindow;
     private Scene registerWindow;
+    private Scene loginWindow;
+
+    public User loggedUser = null;
 
     public DatabaseService dbService;
 
@@ -55,6 +60,12 @@ public class MainController extends Application {
                         registerWindow = new Scene(loadFXML(new RegisterWindowController(this), "./screens/RegisterWindow/register_window_form.fxml"));
                     }
                     mainStage.setScene(registerWindow);
+                break;
+                case "/login":
+                    if(loginWindow == null) {
+                        loginWindow = new Scene(loadFXML(new LoginWindowController(this), "./screens/LoginWindow/login_window_form.fxml"));
+                    }
+                    mainStage.setScene(loginWindow);
                 break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");

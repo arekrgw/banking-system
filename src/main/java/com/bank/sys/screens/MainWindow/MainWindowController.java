@@ -1,12 +1,13 @@
 package com.bank.sys.screens.MainWindow;
 
 import com.bank.sys.MainController;
+import com.bank.sys.interfaces.CleanupOnExit;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class MainWindowController {
+public class MainWindowController implements CleanupOnExit {
 
     public MainController parent;
 
@@ -20,13 +21,9 @@ public class MainWindowController {
         this.parent = parent;
     }
 
-    public MainWindowController() {
-       
-    }
-
-
     public void handleLoginButton(ActionEvent event) {
         System.out.println("Login!");
+        parent.naviageTo("/login");
     }
 
     public void handleRegisterButton(ActionEvent event) {
@@ -34,4 +31,7 @@ public class MainWindowController {
         parent.naviageTo("/register");
     }
     
+
+    @Override
+    public void cleanupOnExit() {}
 }
