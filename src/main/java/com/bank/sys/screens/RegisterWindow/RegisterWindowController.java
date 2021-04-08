@@ -1,9 +1,9 @@
 package com.bank.sys.screens.RegisterWindow;
 
 import com.bank.sys.MainController;
-import com.bank.sys.interfaces.CleanupOnExit;
 import com.bank.sys.models.User;
 import com.bank.sys.utils.AlertHelper;
+import com.bank.sys.utils.GenericWindowController;
 import com.mongodb.MongoException;
 
 import javafx.event.ActionEvent;
@@ -14,7 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
-public class RegisterWindowController implements CleanupOnExit {
+public class RegisterWindowController extends GenericWindowController {
 
     @FXML
     private TextField nameField;
@@ -53,7 +53,6 @@ public class RegisterWindowController implements CleanupOnExit {
             AlertHelper.showAlert(AlertType.INFORMATION, registerButton.getScene().getWindow(),
                     "Udało się założyć konto", "Twój indentyfikator użytkownika to: " + newUser.getId()
                             + ". Nim będziesz się logować do systemu. Został skopiowany do schowka!");
-            cleanupOnExit();
             parent.naviageTo("/");
         } catch (MongoException e) {
             System.out.println("[DB_ERROR] " + e);
@@ -64,7 +63,6 @@ public class RegisterWindowController implements CleanupOnExit {
     }
 
     public void handleCancelButton(ActionEvent event) {
-        cleanupOnExit();
         parent.naviageTo("/");
     }
 

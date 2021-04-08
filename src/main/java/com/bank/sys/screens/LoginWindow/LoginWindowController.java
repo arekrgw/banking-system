@@ -1,9 +1,9 @@
 package com.bank.sys.screens.LoginWindow;
 
 import com.bank.sys.MainController;
-import com.bank.sys.interfaces.CleanupOnExit;
 import com.bank.sys.models.User;
 import com.bank.sys.utils.AlertHelper;
+import com.bank.sys.utils.GenericWindowController;
 import com.mongodb.MongoException;
 
 import javafx.event.ActionEvent;
@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class LoginWindowController implements CleanupOnExit {
+public class LoginWindowController extends GenericWindowController {
 
     @FXML
     private TextField idField;

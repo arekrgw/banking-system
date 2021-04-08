@@ -1,13 +1,13 @@
 package com.bank.sys.screens.MainWindow;
 
 import com.bank.sys.MainController;
-import com.bank.sys.interfaces.CleanupOnExit;
+import com.bank.sys.utils.GenericWindowController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class MainWindowController implements CleanupOnExit {
+public class MainWindowController extends GenericWindowController {
 
     public MainController parent;
 

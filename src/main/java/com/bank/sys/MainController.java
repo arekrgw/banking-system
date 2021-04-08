@@ -1,11 +1,15 @@
 package com.bank.sys;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.bank.sys.models.User;
 import com.bank.sys.screens.LoginWindow.LoginWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
 import com.bank.sys.screens.RegisterWindow.RegisterWindowController;
+import com.bank.sys.utils.GenericWindowController;
+import com.bank.sys.utils.Pair;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +20,8 @@ import javafx.stage.Stage;
 public class MainController extends Application {
 
     private Stage mainStage;
-    private Scene mainWindow;
-    private Scene registerWindow;
-    private Scene loginWindow;
+    private Map<String, Pair<Scene, GenericWindowController>> navigation;
+    private String currentPath;
 
     public User loggedUser = null;
 
@@ -28,6 +31,8 @@ public class MainController extends Application {
     public void start(Stage stage) throws Exception {
 
         dbService = new DatabaseService();
+
+        navigation = new HashMap<>();
 
         mainStage = stage;
 
@@ -40,7 +45,7 @@ public class MainController extends Application {
         launch(args);
     }
 
-    private Parent loadFXML(Object controller, String path) throws IOException{
+    private Parent loadFXML(Object controller, String path) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
         loader.setController(controller);
         return loader.load();
@@ -48,33 +53,41 @@ public class MainController extends Application {
 
     public void naviageTo(String path) {
         try {
-            switch(path) {
+            if (currentPath != null) {
+                navigation.get(currentPath).getSecond().cleanupOnExit();
+            }
+
+            if (navigation.get(path) == null) {
+                Pair<Scene, GenericWindowController> tmp = new Pair<>();
+
+                switch (path) {
                 case "/":
-                    if(mainWindow == null) {
-                        mainWindow = new Scene(loadFXML(new MainWindowController(this), "./screens/MainWindow/main_window_form.fxml"));
-                    }
-                    mainStage.setScene(mainWindow);
-                break;
+                    tmp.setSecond(new MainWindowController(this));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), "./screens/MainWindow/main_window_form.fxml")));
+                    break;
                 case "/register":
-                    if(registerWindow == null) {
-                        registerWindow = new Scene(loadFXML(new RegisterWindowController(this), "./screens/RegisterWindow/register_window_form.fxml"));
-                    }
-                    mainStage.setScene(registerWindow);
-                break;
+                    tmp.setSecond(new RegisterWindowController(this));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), "./screens/RegisterWindow/register_window_form.fxml")));
+                    break;
                 case "/login":
-                    if(loginWindow == null) {
-                        loginWindow = new Scene(loadFXML(new LoginWindowController(this), "./screens/LoginWindow/login_window_form.fxml"));
-                    }
-                    mainStage.setScene(loginWindow);
-                break;
+                    tmp.setSecond(new LoginWindowController(this));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), "./screens/LoginWindow/login_window_form.fxml")));
+                    break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");
-                break;
+                    return;
+                }
+                navigation.put(path, tmp);
             }
-        }
-        catch(IOException fileEx) {
+
+            mainStage.setScene(navigation.get(path).getFirst());
+            currentPath = path;
+        } catch (IOException fileEx) {
             System.out.println("[NAVIGATION ERR]: path \"" + path + "\" couldn't be resolved");
-        } 
-       
+        }
+
     }
 }
