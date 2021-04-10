@@ -12,6 +12,14 @@ public class User {
     private String address;
     private Double money = 0.0;
 
+    public User(String name, String surname, String pesel, String address, Double money) {
+        this.name = name;
+        this.surname = surname;
+        this.pesel = pesel;
+        this.address = address;
+        this.money = money;
+    }
+
     public User(String name, String surname, String pesel, String address) {
         this.name = name;
         this.surname = surname;
@@ -41,6 +49,10 @@ public class User {
         return address;
     }
 
+    public Double getMoney() {
+        return money;
+    }
+
     public User setId(ObjectId id) {
         this.id = id;
         return this;
@@ -63,6 +75,11 @@ public class User {
 
     public User setPesel(String pesel) {
         this.pesel = pesel;
+        return this;
+    }
+
+    public User setMoney(Double money) {
+        this.money = money;
         return this;
     }
 

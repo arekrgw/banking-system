@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.bank.sys.models.User;
-import com.bank.sys.screens.LoginWindow.LoginWindowController;
+import com.bank.sys.screens.CreateAccountWindow.CreateAccountWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
-import com.bank.sys.screens.RegisterWindow.RegisterWindowController;
+import com.bank.sys.screens.UserDetailsWindow.UserDetailsWindowController;
 import com.bank.sys.utils.GenericWindowController;
 import com.bank.sys.utils.Pair;
 
@@ -51,7 +51,7 @@ public class MainController extends Application {
         return loader.load();
     }
 
-    public void naviageTo(String path) {
+    public void naviageTo(String path, Map<String, String> params) {
         try {
             if (currentPath != null) {
                 navigation.get(currentPath).getSecond().cleanupOnExit();
@@ -66,15 +66,15 @@ public class MainController extends Application {
                     tmp.setFirst(new Scene(
                         loadFXML(tmp.getSecond(), "./screens/MainWindow/main_window_form.fxml")));
                     break;
-                case "/register":
-                    tmp.setSecond(new RegisterWindowController(this));
+                case "/create":
+                    tmp.setSecond(new CreateAccountWindowController(this));
                     tmp.setFirst(new Scene(
-                        loadFXML(tmp.getSecond(), "./screens/RegisterWindow/register_window_form.fxml")));
+                        loadFXML(tmp.getSecond(), "./screens/CreateAccountWindow/create_window_form.fxml")));
                     break;
-                case "/login":
-                    tmp.setSecond(new LoginWindowController(this));
+                case "/details":
+                    tmp.setSecond(new UserDetailsWindowController(this));
                     tmp.setFirst(new Scene(
-                        loadFXML(tmp.getSecond(), "./screens/LoginWindow/login_window_form.fxml")));
+                        loadFXML(tmp.getSecond(), "./screens/UserDetailsWindow/user_details_window_form.fxml")));
                     break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");
@@ -85,9 +85,15 @@ public class MainController extends Application {
 
             mainStage.setScene(navigation.get(path).getFirst());
             currentPath = path;
+
+            navigation.get(currentPath).getSecond().onMount(params);
         } catch (IOException fileEx) {
             System.out.println("[NAVIGATION ERR]: path \"" + path + "\" couldn't be resolved");
         }
 
+    }
+
+    public void naviageTo(String path) {
+        naviageTo(path, null);
     }
 }

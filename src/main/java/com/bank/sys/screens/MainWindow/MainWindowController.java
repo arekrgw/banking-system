@@ -12,18 +12,16 @@ public class MainWindowController extends GenericWindowController {
     public MainController parent;
 
     @FXML
-    private Button loginButton;
+    private Button createAccount;
 
-    @FXML
-    private Button registerButton;
     
     public MainWindowController(MainController parent) {
         this.parent = parent;
     }
 
-    public void handleLoginButton(ActionEvent event) {
-        System.out.println("Login!");
-        parent.naviageTo("/login");
+    public void handleCreateAccount(ActionEvent event) {
+        System.out.println("Create!");
+        parent.naviageTo("/create");
     }
 
     public void handleRegisterButton(ActionEvent event) {
