@@ -39,7 +39,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="fullName" text="Arek Pawlak">
+            <Label fx:id="fullName" text="">
                <font>
                   <Font name="Lato Bold" size="21.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="userId" text="Arek Pawlak">
+            <Label fx:id="userId" text="">
                <font>
                   <Font name="Lato Bold" size="21.0" />
                </font>
@@ -67,7 +67,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="address" text="Arek Pawlak">
+            <Label fx:id="address" text="">
                <font>
                   <Font name="Lato Bold" size="21.0" />
                </font>
@@ -81,7 +81,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="pesel" text="Arek Pawlak">
+            <Label fx:id="pesel" text="">
                <font>
                   <Font name="Lato Bold" size="21.0" />
                </font>
@@ -95,7 +95,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="balance" text="Arek Pawlak">
+            <Label fx:id="balance" text="">
                <font>
                   <Font name="Lato Bold" size="21.0" />
                </font>

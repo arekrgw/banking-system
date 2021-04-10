@@ -1,5 +1,6 @@
 package com.bank.sys.screens.UserDetailsWindow;
 
+import java.net.URL;
 import java.util.Map;
 
 import com.bank.sys.MainController;
@@ -12,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class UserDetailsWindowController extends GenericWindowController {
+
+    public final static URL formPath = UserDetailsWindowController.class.getResource("user_details_window_form.fxml");
 
     @FXML
     private Label userId;
@@ -51,7 +54,7 @@ public class UserDetailsWindowController extends GenericWindowController {
     public void handleDeleteButton(ActionEvent event) {}
     public void handleOutButton(ActionEvent event) {}
     public void handleBackButton(ActionEvent event) {
-        parent.naviageTo("/");
+        parent.navigation.naviageTo("/");
     }
 
     @Override
@@ -62,11 +65,20 @@ public class UserDetailsWindowController extends GenericWindowController {
                 userId.setText(user.getId().toString());
                 fullName.setText(user.getName() + " " + user.getSurname());
                 address.setText(user.getAddress());
-                balance.setText(Double.toString(Math.round(user.getMoney() * 100 ) / 100.0));
+                balance.setText(user.getFormattedMoney() + " zł");
                 pesel.setText(user.getPesel());
             }
             
         }
+    }
+
+    @Override
+    public void cleanupOnExit() {
+        userId.setText("");
+        fullName.setText("");
+        address.setText("");
+        balance.setText("");
+        pesel.setText("");
     }
 
 }

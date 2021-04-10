@@ -1,5 +1,9 @@
 package com.bank.sys.screens.CreateAccountWindow;
 
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +18,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 
 public class CreateAccountWindowController extends GenericWindowController {
+
+    public final static URL formPath = CreateAccountWindowController.class.getResource("create_window_form.fxml");
 
     @FXML
     private TextField nameField;
@@ -50,17 +54,10 @@ public class CreateAccountWindowController extends GenericWindowController {
             parent.dbService.insertUser(newUser);
             System.out.println("CREATED USER: ");
             System.out.println(newUser);
-            // ClipboardContent id = new ClipboardContent();
-            // id.putString(newUser.getId().toString());
-            // Clipboard.getSystemClipboard().setContent(id);
-            // AlertHelper.showAlert(AlertType.INFORMATION,
-            // createAccountButton.getScene().getWindow(),
-            // "Udało się założyć konto", "Twój indentyfikator użytkownika to: " +
-            // newUser.getId()
-            // + ". Nim będziesz się logować do systemu. Został skopiowany do schowka!");
+         
             Map<String, String> paramsMap = new HashMap<>();
             paramsMap.put("userId", newUser.getId().toString());
-            parent.naviageTo("/details", paramsMap);
+            parent.navigation.naviageTo("/details", paramsMap);
         } catch (MongoException e) {
             System.out.println("[DB_ERROR] " + e);
             AlertHelper.showAlert(AlertType.ERROR, createAccountButton.getScene().getWindow(), "Błąd bazy danych",
@@ -70,7 +67,7 @@ public class CreateAccountWindowController extends GenericWindowController {
     }
 
     public void handleCancelButton(ActionEvent event) {
-        parent.naviageTo("/");
+        parent.navigation.naviageTo("/");
     }
 
     @Override

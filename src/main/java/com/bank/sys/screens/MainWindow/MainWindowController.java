@@ -1,5 +1,7 @@
 package com.bank.sys.screens.MainWindow;
 
+import java.net.URL;
+
 import com.bank.sys.MainController;
 import com.bank.sys.utils.GenericWindowController;
 
@@ -8,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class MainWindowController extends GenericWindowController {
+
+    public final static URL formPath = MainWindowController.class.getResource("main_window_form.fxml");
 
     public MainController parent;
 
@@ -21,12 +25,12 @@ public class MainWindowController extends GenericWindowController {
 
     public void handleCreateAccount(ActionEvent event) {
         System.out.println("Create!");
-        parent.naviageTo("/create");
+        parent.navigation.naviageTo("/create");
     }
 
     public void handleRegisterButton(ActionEvent event) {
         System.out.println("Register!");
-        parent.naviageTo("/register");
+        parent.navigation.naviageTo("/register");
     }
     
 

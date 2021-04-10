@@ -1,5 +1,6 @@
 package com.bank.sys.models;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 import org.bson.types.ObjectId;
@@ -11,6 +12,8 @@ public class User {
     private String pesel;
     private String address;
     private Double money = 0.0;
+
+    static DecimalFormat moneyFormat = new DecimalFormat("0.00");
 
     public User(String name, String surname, String pesel, String address, Double money) {
         this.name = name;
@@ -51,6 +54,10 @@ public class User {
 
     public Double getMoney() {
         return money;
+    }
+
+    public String getFormattedMoney() {
+        return User.moneyFormat.format(money);
     }
 
     public User setId(ObjectId id) {
