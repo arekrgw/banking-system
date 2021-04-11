@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.bank.sys.screens.CreateAccountWindow.CreateAccountWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
+import com.bank.sys.screens.SearchWindow.SearchWindowController;
 import com.bank.sys.screens.UserDetailsWindow.UserDetailsWindowController;
 import com.bank.sys.utils.GenericWindowController;
 import com.bank.sys.utils.Pair;
@@ -61,6 +62,11 @@ public class Navigation {
                     tmp.setSecond(new UserDetailsWindowController(parent));
                     tmp.setFirst(new Scene(
                         loadFXML(tmp.getSecond(), UserDetailsWindowController.formPath)));
+                    break;
+                case "/search":
+                    tmp.setSecond(new SearchWindowController(parent));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), SearchWindowController.formPath)));
                     break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");

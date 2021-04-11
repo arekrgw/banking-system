@@ -56,4 +56,10 @@ public class DatabaseService {
 
         return usersCollection.find(eq("_id", new ObjectId(userId))).first();
     }
+
+    public void deleteUser(String userId) {
+        initUsersCollection();
+
+        usersCollection.deleteOne(eq("_id", new ObjectId(userId)));
+    }
 }

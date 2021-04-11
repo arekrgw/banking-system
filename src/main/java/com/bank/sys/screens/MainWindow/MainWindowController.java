@@ -18,6 +18,9 @@ public class MainWindowController extends GenericWindowController {
     @FXML
     private Button createAccount;
 
+    @FXML
+    private Button searchButton;
+
     
     public MainWindowController(MainController parent) {
         this.parent = parent;
@@ -28,9 +31,8 @@ public class MainWindowController extends GenericWindowController {
         parent.navigation.naviageTo("/create");
     }
 
-    public void handleRegisterButton(ActionEvent event) {
-        System.out.println("Register!");
-        parent.navigation.naviageTo("/register");
+    public void handleSearch(ActionEvent event) {
+        parent.navigation.naviageTo("/search");
     }
     
 

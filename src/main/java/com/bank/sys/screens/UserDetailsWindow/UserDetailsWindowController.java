@@ -44,6 +44,7 @@ public class UserDetailsWindowController extends GenericWindowController {
     private Button backButton;
 
     private MainController parent;
+    private User user;
 
     public UserDetailsWindowController(MainController parent) {
         this.parent = parent;
@@ -51,7 +52,10 @@ public class UserDetailsWindowController extends GenericWindowController {
 
 
     public void handleInButton(ActionEvent event) {}
-    public void handleDeleteButton(ActionEvent event) {}
+    public void handleDeleteButton(ActionEvent event) {
+        parent.dbService.deleteUser(user.getId().toString());
+        parent.navigation.naviageTo("/");
+    }
     public void handleOutButton(ActionEvent event) {}
     public void handleBackButton(ActionEvent event) {
         parent.navigation.naviageTo("/");
@@ -62,6 +66,7 @@ public class UserDetailsWindowController extends GenericWindowController {
         if (params != null && params.containsKey("userId")) {
             User user = parent.dbService.findUser(params.get("userId"));
             if(user != null) {
+                this.user = user;
                 userId.setText(user.getId().toString());
                 fullName.setText(user.getName() + " " + user.getSurname());
                 address.setText(user.getAddress());
@@ -79,6 +84,7 @@ public class UserDetailsWindowController extends GenericWindowController {
         address.setText("");
         balance.setText("");
         pesel.setText("");
+        user = null;
     }
 
 }
