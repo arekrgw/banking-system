@@ -9,6 +9,7 @@ import com.bank.sys.screens.CreateAccountWindow.CreateAccountWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
 import com.bank.sys.screens.SearchWindow.SearchWindowController;
 import com.bank.sys.screens.UserDetailsWindow.UserDetailsWindowController;
+import com.bank.sys.screens.UsersListWindowController.UsersListWindowController;
 import com.bank.sys.utils.GenericWindowController;
 import com.bank.sys.utils.Pair;
 
@@ -68,6 +69,11 @@ public class Navigation {
                     tmp.setFirst(new Scene(
                         loadFXML(tmp.getSecond(), SearchWindowController.formPath)));
                     break;
+                case "/usersList":
+                    tmp.setSecond(new UsersListWindowController(parent));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), UsersListWindowController.formPath)));
+                break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");
                     return;
@@ -78,7 +84,10 @@ public class Navigation {
             mainStage.setScene(navigation.get(path).getFirst());
             currentPath = path;
 
-            navigation.get(currentPath).getSecond().onMount(params);
+            navigation.get(currentPath).getSecond()
+            
+            
+            .onMount(params);
         } catch (IOException fileEx) {
             System.out.println("[NAVIGATION ERR]: path \"" + path + "\" couldn't be resolved");
         }

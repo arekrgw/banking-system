@@ -3,7 +3,6 @@ package com.bank.sys.screens.SearchWindow;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import com.bank.sys.MainController;
 import com.bank.sys.utils.GenericWindowController;
@@ -13,12 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-public class SearchWindowController extends GenericWindowController implements Initializable {
+public class SearchWindowController extends GenericWindowController {
     public final static URL formPath = SearchWindowController.class.getResource("search_window_form.fxml");
     private ObservableMap<String, String> listItems = FXCollections.observableHashMap();
 
@@ -50,15 +48,14 @@ public class SearchWindowController extends GenericWindowController implements I
 
         params.put("filterType", listItems.get(choice.getValue()));
         params.put("filterValue", filterField.getText());
-        parent.navigation.naviageTo("/users", params);
+        parent.navigation.naviageTo("/usersList", params);
     }
 
     public void handleBack(ActionEvent event) {
         parent.navigation.naviageTo("/");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void onMount(Map<String, String> params) {
         listItems.put("Identyfikator", "_id");
         listItems.put("Nazwisko", "surname");
         listItems.put("Adres", "address");
@@ -68,5 +65,19 @@ public class SearchWindowController extends GenericWindowController implements I
         choice.setItems(l);
         choice.setValue("Identyfikator");
     }
+
+    // @FXML
+    // public void initialize() {
+    //     // listItems.put("Identyfikator", "_id");
+    //     // listItems.put("Nazwisko", "surname");
+    //     // listItems.put("Adres", "address");
+    //     // listItems.put("Pesel", "pesel");
+    //     // listItems.put("Imię", "name");
+    //     // ObservableList<String> l = FXCollections.observableArrayList(listItems.keySet());
+    //     // choice.setItems(l);
+    //     // choice.setValue("Identyfikator");
+    // }
+
+    
 
 }
