@@ -55,29 +55,21 @@ public class SearchWindowController extends GenericWindowController {
         parent.navigation.naviageTo("/");
     }
 
-    public void onMount(Map<String, String> params) {
-        listItems.put("Identyfikator", "_id");
-        listItems.put("Nazwisko", "surname");
-        listItems.put("Adres", "address");
-        listItems.put("Pesel", "pesel");
-        listItems.put("Imię", "name");
-        ObservableList<String> l = FXCollections.observableArrayList(listItems.keySet());
-        choice.setItems(l);
+    public void cleanupOnExit() {
+        filterField.setText("");
         choice.setValue("Identyfikator");
     }
 
-    // @FXML
-    // public void initialize() {
-    //     // listItems.put("Identyfikator", "_id");
-    //     // listItems.put("Nazwisko", "surname");
-    //     // listItems.put("Adres", "address");
-    //     // listItems.put("Pesel", "pesel");
-    //     // listItems.put("Imię", "name");
-    //     // ObservableList<String> l = FXCollections.observableArrayList(listItems.keySet());
-    //     // choice.setItems(l);
-    //     // choice.setValue("Identyfikator");
-    // }
-
-    
-
+    public void onMount(Map<String, String> params) {
+        if(choice.getItems().isEmpty()) {
+            listItems.put("Identyfikator", "_id");
+            listItems.put("Nazwisko", "surname");
+            listItems.put("Adres", "address");
+            listItems.put("Pesel", "pesel");
+            listItems.put("Imię", "name");
+            ObservableList<String> l = FXCollections.observableArrayList(listItems.keySet());
+            choice.setItems(l);
+            choice.setValue("Identyfikator");
+        }
+    }
 }
