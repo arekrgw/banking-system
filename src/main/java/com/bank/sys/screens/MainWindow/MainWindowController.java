@@ -35,6 +35,9 @@ public class MainWindowController extends GenericWindowController {
         parent.navigation.naviageTo("/search");
     }
     
+    public void handleTransfer(ActionEvent event) {
+        parent.navigation.naviageTo("/transfer");
+    }
 
     @Override
     public void cleanupOnExit() {}
