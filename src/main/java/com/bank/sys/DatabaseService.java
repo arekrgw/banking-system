@@ -1,6 +1,8 @@
 package com.bank.sys;
 
 import com.bank.sys.models.User;
+import com.bank.sys.utils.NotEnoughMoneyException;
+import com.bank.sys.utils.UserNotFoundException;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.FindIterable;
@@ -16,7 +18,8 @@ import org.bson.types.ObjectId;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Updates.*;
 
 public class DatabaseService {
     
@@ -67,5 +70,23 @@ public class DatabaseService {
     public FindIterable<User> findUsersCriteria(String filterType, String filterValue) {
         initUsersCollection();
         return usersCollection.find(eq(filterType, filterValue));
+    }
+
+    public void transferMoney(String fromId, String toId, double amount) throws UserNotFoundException, NotEnoughMoneyException {
+        initUsersCollection();
+
+        User fromUser = usersCollection.find(eq("_id", new ObjectId(fromId))).first();
+        User toUser = usersCollection.find(eq("_id", new ObjectId(toId))).first();
+
+        if(fromUser == null || toUser == null) {
+            throw new UserNotFoundException("Jeden z użytkowników nie istnieje");
+        }
+
+        if(fromUser.getMoney() < amount) {
+            throw new NotEnoughMoneyException("Użytkownik ma za mało środków na koncie aby wykonać przelew");
+        }
+
+        usersCollection.updateOne(eq("_id", fromUser.getId()), set("money", fromUser.getMoney() - amount));
+        usersCollection.updateOne(eq("_id", toUser.getId()), set("money", toUser.getMoney() + amount));
     }
 }

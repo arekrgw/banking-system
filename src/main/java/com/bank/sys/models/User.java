@@ -56,7 +56,7 @@ public class User {
         return money;
     }
 
-    public String getFormattedMoney() {
+    public String formattedMoney() {
         return User.moneyFormat.format(money);
     }
 

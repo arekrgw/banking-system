@@ -1,6 +1,7 @@
 package com.bank.sys.screens.UserDetailsWindow;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.bank.sys.MainController;
@@ -61,6 +62,12 @@ public class UserDetailsWindowController extends GenericWindowController {
         parent.navigation.naviageTo("/");
     }
 
+    public void handleMoveToTransfer(ActionEvent event) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userId", user.getId().toString());
+        parent.navigation.naviageTo("/transfer", params);
+    
+    }
     @Override
     public void onMount(Map<String, String> params) {
         if (params != null && params.containsKey("userId")) {
@@ -70,7 +77,7 @@ public class UserDetailsWindowController extends GenericWindowController {
                 userId.setText(user.getId().toString());
                 fullName.setText(user.getName() + " " + user.getSurname());
                 address.setText(user.getAddress());
-                balance.setText(user.getFormattedMoney() + " zł");
+                balance.setText(user.formattedMoney() + " zł");
                 pesel.setText(user.getPesel());
             }
             
