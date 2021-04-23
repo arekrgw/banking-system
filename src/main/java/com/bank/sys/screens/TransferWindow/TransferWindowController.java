@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Map;
 
 import com.bank.sys.MainController;
+import com.bank.sys.models.User;
 import com.bank.sys.utils.AlertHelper;
 import com.bank.sys.utils.GenericWindowController;
 import com.bank.sys.utils.NotEnoughMoneyException;
@@ -30,11 +31,19 @@ public class TransferWindowController extends GenericWindowController {
 
 
     public void pasteFrom(ActionEvent event) {
-        // TODO
+        User us = parent.clipboardModal.controller.getUser();
+        pasteToField(fromField, us);
     }
     
+    private void pasteToField(TextField field, User user) {
+        if(user != null) {
+            field.setText(user.getId().toString());
+        }
+    }
+
     public void pasteTo(ActionEvent event) {
-        // TODO
+        User us = parent.clipboardModal.controller.getUser();
+        pasteToField(toField, us);
     }
 
     public void switchSides(ActionEvent event) {

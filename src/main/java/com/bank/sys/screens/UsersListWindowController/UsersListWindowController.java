@@ -53,6 +53,7 @@ public class UsersListWindowController extends GenericWindowController{
         if (params != null) {
             
             MongoCursor<User> users = parent.dbService.findUsersCriteria(params.get("filterType"), params.get("filterValue")).cursor();
+            verticalBox.getChildren().clear();
             while(users.hasNext()) {
                 User user = users.next();
                 verticalBox.getChildren().add(new UserTileWidget(user, elementClickEvent));

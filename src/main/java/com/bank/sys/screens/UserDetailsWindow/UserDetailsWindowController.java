@@ -72,6 +72,10 @@ public class UserDetailsWindowController extends GenericWindowController {
         naviageToManager("withdraw");
     }
 
+    public void handleAddToClipboard(ActionEvent event) {
+        this.parent.clipboardModal.controller.addUser(user);
+    }
+
     public void handleBackButton(ActionEvent event) {
         parent.navigation.naviageTo("/");
     }
