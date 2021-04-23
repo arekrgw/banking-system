@@ -89,4 +89,24 @@ public class DatabaseService {
         usersCollection.updateOne(eq("_id", fromUser.getId()), set("money", fromUser.getMoney() - amount));
         usersCollection.updateOne(eq("_id", toUser.getId()), set("money", toUser.getMoney() + amount));
     }
+
+    public void depositMoney(String userId, double amount) {
+        initUsersCollection();
+
+        User user = usersCollection.find(eq("_id", new ObjectId(userId))).first();
+
+        usersCollection.updateOne(eq("_id", user.getId()), set("money", user.getMoney() + amount));
+    }
+
+    public void withdrawMoney(String userId, double amount) throws NotEnoughMoneyException {
+        initUsersCollection();
+
+        User user = usersCollection.find(eq("_id", new ObjectId(userId))).first();
+
+        if(user.getMoney() < amount) {
+            throw new NotEnoughMoneyException("Brak wystarczającej ilości środków");
+        }
+
+        usersCollection.updateOne(eq("_id", user.getId()), set("money", user.getMoney() - amount));
+    }
 }

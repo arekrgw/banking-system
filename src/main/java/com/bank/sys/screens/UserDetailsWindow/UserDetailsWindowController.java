@@ -51,13 +51,27 @@ public class UserDetailsWindowController extends GenericWindowController {
         this.parent = parent;
     }
 
+    private void naviageToManager(String type) {
+        Map<String, String> params = new HashMap<>();
+        params.put("userId", user.getId().toString());
+        params.put("type", type);
 
-    public void handleInButton(ActionEvent event) {}
+        parent.navigation.naviageTo("/manager", params);
+    }
+
+    public void handleInButton(ActionEvent event) {
+        naviageToManager("deposit");
+    }
+    
     public void handleDeleteButton(ActionEvent event) {
         parent.dbService.deleteUser(user.getId().toString());
         parent.navigation.naviageTo("/");
     }
-    public void handleOutButton(ActionEvent event) {}
+
+    public void handleOutButton(ActionEvent event) {
+        naviageToManager("withdraw");
+    }
+
     public void handleBackButton(ActionEvent event) {
         parent.navigation.naviageTo("/");
     }

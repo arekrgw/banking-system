@@ -60,6 +60,11 @@ public class TransferWindowController extends GenericWindowController {
             AlertHelper.showAlert(AlertType.ERROR, fromField.getScene().getWindow(), "Błąd przy przelewie",
                     "Jeden z użytkowników nie istnieje :(");
         }
+        catch(NumberFormatException e) {
+            System.out.println("Nan " + e);
+            AlertHelper.showAlert(AlertType.ERROR, fromField.getScene().getWindow(), "Błąd przy przelewie",
+                    "Podana kwota nie jest liczbą :(");
+        }
         catch(Exception e) {
             System.out.println("Something went wrong " + e);
             AlertHelper.showAlert(AlertType.ERROR, fromField.getScene().getWindow(), "Błąd przy przelewie",

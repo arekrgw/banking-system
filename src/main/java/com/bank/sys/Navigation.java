@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.bank.sys.screens.CreateAccountWindow.CreateAccountWindowController;
 import com.bank.sys.screens.MainWindow.MainWindowController;
+import com.bank.sys.screens.MoneyManagerWindow.MoneyManagerWindowController;
 import com.bank.sys.screens.SearchWindow.SearchWindowController;
 import com.bank.sys.screens.TransferWindow.TransferWindowController;
 import com.bank.sys.screens.UserDetailsWindow.UserDetailsWindowController;
@@ -79,6 +80,11 @@ public class Navigation {
                     tmp.setSecond(new TransferWindowController(parent));
                     tmp.setFirst(new Scene(
                         loadFXML(tmp.getSecond(), TransferWindowController.formPath)));
+                break;
+                case "/manager":
+                    tmp.setSecond(new MoneyManagerWindowController(parent));
+                    tmp.setFirst(new Scene(
+                        loadFXML(tmp.getSecond(), MoneyManagerWindowController.formPath)));
                 break;
                 default:
                     System.out.println("[NAVIGATION ERR]: path \"" + path + "\" not found");
