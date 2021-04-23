@@ -1,6 +1,6 @@
 package com.bank.sys;
 
-import com.bank.sys.modals.ClipboardModal;
+import com.bank.sys.modals.Clipboard.ClipboardModal;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

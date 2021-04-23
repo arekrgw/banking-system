@@ -1,4 +1,4 @@
-package com.bank.sys.modals;
+package com.bank.sys.utils;
 
 import com.bank.sys.models.User;
 

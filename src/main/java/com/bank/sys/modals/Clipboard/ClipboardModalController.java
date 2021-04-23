@@ -1,6 +1,7 @@
-package com.bank.sys.modals;
+package com.bank.sys.modals.Clipboard;
 
 import com.bank.sys.models.User;
+import com.bank.sys.utils.UserModalEntry;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

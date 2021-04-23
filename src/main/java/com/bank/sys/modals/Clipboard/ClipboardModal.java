@@ -1,4 +1,4 @@
-package com.bank.sys.modals;
+package com.bank.sys.modals.Clipboard;
 
 import java.io.IOException;
 
